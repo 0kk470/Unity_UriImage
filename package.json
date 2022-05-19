@@ -1,0 +1,18 @@
+{
+    "name": "com.saltyfishkk.uri-image",
+    "displayName": "UriImage",
+    "description": "This plugin makes ugui's image support display sprite from url via unitywebrequest",
+    "version": "0.0.1",
+    "unity": "2020.3",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/0kk470/Unity_UriImage#upm"
+    },
+    "author": "0kk470 <ookk47oo@gmail.com> (https://github.com/0kk470)",
+    "dependencies": {},
+    "keywords": [
+      "ugui",
+      "image"
+    ]
+  }
