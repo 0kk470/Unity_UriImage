@@ -7,8 +7,9 @@ This plugin makes ugui's image support displaying sprite from url, which is base
 * Open your package manager window and select "add package from git URL".
 ![img_upm](https://user-images.githubusercontent.com/25216715/169458905-3554ec54-2f28-4c02-85cf-8f05dd40d068.png)
 * Type in "https://github.com/0kk470/Unity_UriImage.git#upm"
+
 #### II. Dowanload unitypackage
-Or download the [unitypackage]() and import.
+Or download the [unitypackage](https://github.com/0kk470/Unity_UriImage/raw/master/UriImage.unitypackage) and import.
 
 ### Usage
 ***
