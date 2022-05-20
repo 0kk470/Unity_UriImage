@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace SaltyfishKK.UriImage
 {
-    public class UriSpriteLoader:Singleton<UriSpriteLoader>
+    public class UriSpriteLoader : Singleton<UriSpriteLoader>
     {
         private Sprite m_DefaultErrorSprite;
 
@@ -38,14 +38,14 @@ namespace SaltyfishKK.UriImage
 
         private void CheckDestroyedImages()
         {
-            foreach(var img in m_LoadRequests.Keys)
+            foreach (var img in m_LoadRequests.Keys)
             {
                 if (img == null)
                     m_ImagesAlreadyDestroyed.Add(img);
             }
-            if(m_ImagesAlreadyDestroyed.Count > 0)
+            if (m_ImagesAlreadyDestroyed.Count > 0)
             {
-                foreach(var img in m_ImagesAlreadyDestroyed)
+                foreach (var img in m_ImagesAlreadyDestroyed)
                 {
                     EndRequest(img);
                     Debug.Log("Clear:" + img);
@@ -59,12 +59,12 @@ namespace SaltyfishKK.UriImage
         {
             if (string.IsNullOrEmpty(filePath))
                 return;
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 DisplayErrorImage(img);
                 return;
             }
-            DisplayFromRemote(img, "file://" + filePath, isNative); 
+            DisplayFromRemote(img, "file://" + filePath, isNative);
         }
 
         public void DisplayFromRemote(Image img, string uri, bool isNative = false)
@@ -78,7 +78,7 @@ namespace SaltyfishKK.UriImage
             {
                 if (IsRequesting(img))
                     return;
-                if(!img.gameObject.activeInHierarchy)
+                if (!img.gameObject.activeInHierarchy)
                 {
                     DisplayErrorImage(img);
                     Debug.LogFormat("[{0}] is not active", img);
@@ -107,6 +107,8 @@ namespace SaltyfishKK.UriImage
         {
             if (!m_LoadRequests.ContainsKey(img))
                 m_LoadRequests.Add(img, request);
+            else
+                m_LoadRequests[img] = request;
             return request.SendWebRequest();
         }
 
@@ -115,6 +117,7 @@ namespace SaltyfishKK.UriImage
             if (m_LoadRequests.ContainsKey(img))
             {
                 m_LoadRequests[img]?.Abort();
+                m_LoadRequests[img]?.Dispose();
                 m_LoadRequests.Remove(img);
             }
         }
@@ -122,7 +125,7 @@ namespace SaltyfishKK.UriImage
         private Sprite CacheTexture(string uri, Texture2D texture)
         {
             var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            if(m_CacheSprites.ContainsKey(uri))
+            if (m_CacheSprites.ContainsKey(uri))
             {
                 m_CacheSprites[uri] = sprite;
             }

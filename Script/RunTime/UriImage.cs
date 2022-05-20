@@ -9,9 +9,9 @@ namespace SaltyfishKK.UriImage
         LocalFile,
     }
 
-    [AddComponentMenu("UI/UriImage",53)]
+    [AddComponentMenu("UI/UriImage", 53)]
     [DisallowMultipleComponent]
-    public class UriImage:Image
+    public class UriImage : Image
     {
         [SerializeField]
         private UriSourceType m_UriType = UriSourceType.Remote;
@@ -38,21 +38,14 @@ namespace SaltyfishKK.UriImage
         {
             m_Uri = uri;
             m_UriType = sourceType;
-            if (m_UriType == UriSourceType.Remote)
-            {
-                UriSpriteLoader.Instance.DisplayFromRemote(this, m_Uri, m_SetNativeSize);
-            }
-            else
-            {
-                UriSpriteLoader.Instance.DisplayFromFilePath(this, m_Uri, m_SetNativeSize);
-            }
+            BeginLoadSprite();
         }
 
 
         [ContextMenu("BeginLoadSprite")]
         private void BeginLoadSprite()
         {
-            if(m_UriType == UriSourceType.Remote)
+            if (m_UriType == UriSourceType.Remote)
             {
                 UriSpriteLoader.Instance.DisplayFromRemote(this, m_Uri, m_SetNativeSize);
             }
