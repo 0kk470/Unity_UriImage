@@ -34,13 +34,13 @@ public class YourClassOrSomethingElse:MonoBehaviour
     }
 }
 ```
-#### Use default Image
+### Use default Image
 Only want to use UGUI Image? Then just call these functions.
 ```Csharp
 UriSpriteLoader.Instance.DisplayFromRemote(ImgComponent, "url");
 UriSpriteLoader.Instance.DisplayFromFilePath(ImgComponent, "url");
 ```
-#### Custom your own ErrorImage
+### Custom your own ErrorImage
 1. Find the <b>UriImage_Setting</b> scriptable asset.
 
 2. Modify the <b>DefaultErrorImagePath</b> (relative to Resources Folder).
