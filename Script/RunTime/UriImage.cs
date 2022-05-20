@@ -49,6 +49,7 @@ namespace SaltyfishKK.UriImage
         }
 
 
+        [ContextMenu("BeginLoadSprite")]
         private void BeginLoadSprite()
         {
             if(m_UriType == UriSourceType.Remote)
