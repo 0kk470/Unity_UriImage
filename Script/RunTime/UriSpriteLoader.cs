@@ -26,7 +26,13 @@ namespace SaltyfishKK.UriImage
 
         private bool IsRequesting(Image img)
         {
-            return m_LoadRequests.ContainsKey(img);
+            bool contains = m_LoadRequests.ContainsKey(img);
+            bool isActive = img != null && img.gameObject.activeInHierarchy;
+            if (contains && !isActive)
+            {
+                EndRequest(img);
+            }
+            return contains && isActive;
         }
 
 
@@ -72,6 +78,12 @@ namespace SaltyfishKK.UriImage
             {
                 if (IsRequesting(img))
                     return;
+                if(!img.gameObject.activeInHierarchy)
+                {
+                    DisplayErrorImage(img);
+                    Debug.LogFormat("[{0}] is not active", img);
+                    return;
+                }
                 img.StartCoroutine(Co_LoadSpriteFromUri(uri, img, isNative));
             }
             else
