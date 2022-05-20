@@ -22,7 +22,7 @@ namespace SaltyfishKK.UriImage.Editor
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 if(path.Contains("Resources"))
                 {
-                    EditorUtility.DisplayDialog("Notice", "UriImage Setting is aready exist, path:" + path, "ok");
+                    EditorUtility.DisplayDialog("Notice", "UriImage Setting is already existed, path:" + path, "ok");
                     return;
                 }
             }
