@@ -36,7 +36,7 @@ public class YourClassOrSomethingElse:MonoBehaviour
 }
 ```
 #### Use default Image
-Only want use UGUI Image? Then just call these functions.
+Only want to use UGUI Image? Then just call these functions.
 ```Csharp
 UriSpriteLoader.Instance.DisplayFromRemote(ImgComponent, "url");
 UriSpriteLoader.Instance.DisplayFromFilePath(ImgComponent, "url");
