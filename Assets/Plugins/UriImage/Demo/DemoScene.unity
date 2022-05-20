@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &472314490
 RectTransform:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: -5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 162.2971, y: 96.3416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &472314491
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
   m_UriType: 0
-  m_Uri: https://github.com/0kk470/UriImage/Assets/Resources/UriImage/unity_logo.png
+  m_Uri: https://user-images.githubusercontent.com/25216715/169448552-472b09e8-8b83-4015-bf72-b4f24af34c18.png
   m_LoadOnStart: 1
   m_SetNativeSize: 1
 --- !u!222 &472314492
@@ -368,7 +368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1040132432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: -5}
+  m_AnchoredPosition: {x: 255, y: 0}
   m_SizeDelta: {x: 162.2971, y: 96.3416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1040132433
@@ -418,9 +418,9 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  m_UriType: 0
-  m_Uri: 
-  m_LoadOnStart: 0
+  m_UriType: 1
+  m_Uri: C:/Users/A/Desktop/medal_3.png
+  m_LoadOnStart: 1
   m_SetNativeSize: 1
 --- !u!222 &1040132434
 CanvasRenderer:
@@ -447,7 +447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1192156418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -464,7 +464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -266, y: -5}
+  m_AnchoredPosition: {x: -266, y: 0}
   m_SizeDelta: {x: 162.2971, y: 96.3416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1192156419
