@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace SaltyfishKK.UriImage
 {
-    public class UriSpriteLoader:Singleton<UriSpriteLoader>
+    public class UriSpriteLoader : Singleton<UriSpriteLoader>
     {
         private Sprite m_DefaultErrorSprite;
 
@@ -32,12 +32,12 @@ namespace SaltyfishKK.UriImage
         {
             if (string.IsNullOrEmpty(filePath))
                 return;
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 DisplayErrorImage(img);
                 return;
             }
-            DisplayFromRemote(img, "file://" + filePath, isNative); 
+            DisplayFromRemote(img, "file://" + filePath, isNative);
         }
 
         public void DisplayFromRemote(Image img, string uri, bool isNative = false)
@@ -90,7 +90,7 @@ namespace SaltyfishKK.UriImage
         private Sprite CacheTexture(string uri, Texture2D texture)
         {
             var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            if(m_CacheSprites.ContainsKey(uri))
+            if (m_CacheSprites.ContainsKey(uri))
             {
                 m_CacheSprites[uri] = sprite;
             }
@@ -106,17 +106,21 @@ namespace SaltyfishKK.UriImage
         {
             var request = UnityWebRequestTexture.GetTexture(uri);
             yield return BeginRequest(img, request);
-            if (request.result == UnityWebRequest.Result.Success)
+#if UNITY_2020_1_OR_NEWER
+            if (request.result != UnityWebRequest.Result.Success)
+#else
+            if (request.isNetworkError || request.isHttpError)
+#endif
+            {
+                Debug.Log(request.error);
+                DisplayErrorImage(img);
+            }
+            else
             {
                 var texture = DownloadHandlerTexture.GetContent(request);
                 img.sprite = CacheTexture(uri, texture);
                 if (isNative)
                     img.SetNativeSize();
-            }
-            else
-            {
-                Debug.Log(request.result);
-                DisplayErrorImage(img);
             }
             EndRequest(img);
         }
