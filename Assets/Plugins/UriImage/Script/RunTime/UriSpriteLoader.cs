@@ -106,17 +106,21 @@ namespace SaltyfishKK.UriImage
         {
             var request = UnityWebRequestTexture.GetTexture(uri);
             yield return BeginRequest(img, request);
-            if (request.result == UnityWebRequest.Result.Success)
+#if UNITY_2020_1_OR_NEWER
+            if (request.result != UnityWebRequest.Result.Success)
+#else
+            if (request.isNetworkError || request.isHttpError)
+#endif
+            {
+                Debug.Log(request.error);
+                DisplayErrorImage(img);
+            }
+            else
             {
                 var texture = DownloadHandlerTexture.GetContent(request);
                 img.sprite = CacheTexture(uri, texture);
                 if (isNative)
                     img.SetNativeSize();
-            }
-            else
-            {
-                Debug.Log(request.result);
-                DisplayErrorImage(img);
             }
             EndRequest(img);
         }
