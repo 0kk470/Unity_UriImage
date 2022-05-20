@@ -107,6 +107,8 @@ namespace SaltyfishKK.UriImage
         {
             if (!m_LoadRequests.ContainsKey(img))
                 m_LoadRequests.Add(img, request);
+            else
+                m_LoadRequests[img] = request;
             return request.SendWebRequest();
         }
 
@@ -115,6 +117,7 @@ namespace SaltyfishKK.UriImage
             if (m_LoadRequests.ContainsKey(img))
             {
                 m_LoadRequests[img]?.Abort();
+                m_LoadRequests[img]?.Dispose();
                 m_LoadRequests.Remove(img);
             }
         }
