@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Uri: https://user-images.githubusercontent.com/25216715/169448552-472b09e8-8b83-4015-bf72-b4f24af34c18.png
   m_LoadOnStart: 1
   m_Param:
-    IsNativeSize: 0
+    IsNativeSize: 1
     IsOverrideSprite: 1
 --- !u!222 &472314492
 CanvasRenderer:
