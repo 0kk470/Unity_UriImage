@@ -1,4 +1,5 @@
 ﻿using SaltyfishKK.Util;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,14 @@ using UnityEngine.UI;
 
 namespace SaltyfishKK.UriImage
 {
+    [Serializable]
+    public struct UriImageParam
+    {
+        public bool IsNativeSize;
+
+        public bool IsOverrideSprite;
+    }
+
     public class UriSpriteLoader:Singleton<UriSpriteLoader>
     {
         private Sprite m_DefaultErrorSprite;
@@ -55,23 +64,23 @@ namespace SaltyfishKK.UriImage
         }
 
 
-        public void DisplayFromFilePath(Image img, string filePath, bool isNative = false)
+        public void DisplayFromFilePath(Image img, string filePath, UriImageParam param = default)
         {
             if (string.IsNullOrEmpty(filePath))
                 return;
             if(!File.Exists(filePath))
             {
-                DisplayErrorImage(img);
+                DisplayErrorImage(img, param);
                 return;
             }
-            DisplayFromRemote(img, "file://" + filePath, isNative); 
+            DisplayFromRemote(img, "file://" + filePath, param); 
         }
 
-        public void DisplayFromRemote(Image img, string uri, bool isNative = false)
+        public void DisplayFromRemote(Image img, string uri, UriImageParam param = default)
         {
             if (string.IsNullOrEmpty(uri))
             {
-                DisplayErrorImage(img);
+                DisplayErrorImage(img, param);
                 return;
             }
             if (!m_CacheSprites.TryGetValue(uri, out Sprite sprite))
@@ -80,11 +89,11 @@ namespace SaltyfishKK.UriImage
                     return;
                 if(!img.gameObject.activeInHierarchy)
                 {
-                    DisplayErrorImage(img);
+                    DisplayErrorImage(img, param);
                     Debug.LogFormat("[{0}] is not active", img);
                     return;
                 }
-                img.StartCoroutine(Co_LoadSpriteFromUri(uri, img, isNative));
+                img.StartCoroutine(Co_LoadSpriteFromUri(uri, img, param));
             }
             else
             {
@@ -93,13 +102,16 @@ namespace SaltyfishKK.UriImage
             CheckDestroyedImages();
         }
 
-        private void DisplayErrorImage(Image img)
+        private void DisplayErrorImage(Image img, UriImageParam param)
         {
             if (!UriImage_Setting.EnableErrorImage)
                 return;
             if (m_DefaultErrorSprite == null)
                 m_DefaultErrorSprite = Resources.Load<Sprite>(UriImage_Setting.DefaultErrorImagePath);
-            img.sprite = m_DefaultErrorSprite;
+            if (param.IsOverrideSprite)
+                img.overrideSprite = m_DefaultErrorSprite;
+            else
+                img.sprite = m_DefaultErrorSprite;
         }
 
 
@@ -137,7 +149,7 @@ namespace SaltyfishKK.UriImage
         }
 
 
-        private IEnumerator Co_LoadSpriteFromUri(string uri, Image img, bool isNative)
+        private IEnumerator Co_LoadSpriteFromUri(string uri, Image img, UriImageParam param)
         {
             var request = UnityWebRequestTexture.GetTexture(uri);
             yield return BeginRequest(img, request);
@@ -148,14 +160,20 @@ namespace SaltyfishKK.UriImage
 #endif
             {
                 Debug.Log(request.error);
-                DisplayErrorImage(img);
+                DisplayErrorImage(img, param);
             }
             else
             {
                 var texture = DownloadHandlerTexture.GetContent(request);
-                img.sprite = CacheTexture(uri, texture);
-                if (isNative)
+                var sprite = CacheTexture(uri, texture);
+
+                if (param.IsOverrideSprite)
+                    img.overrideSprite = sprite;
+                else
+                    img.sprite = sprite;
+                if (param.IsNativeSize)
                     img.SetNativeSize();
+
             }
             EndRequest(img);
         }

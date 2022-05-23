@@ -8,7 +8,7 @@ public class UriImageInspector : ImageEditor
     private SerializedProperty m_UriType;
     private SerializedProperty m_Uri;
     private SerializedProperty m_LoadOnStart;
-    private SerializedProperty m_SetNativeSize;
+    private SerializedProperty m_Param;
 
 
     protected override void OnEnable()
@@ -16,7 +16,7 @@ public class UriImageInspector : ImageEditor
         m_UriType = serializedObject.FindProperty("m_UriType");
         m_Uri = serializedObject.FindProperty("m_Uri");
         m_LoadOnStart = serializedObject.FindProperty("m_LoadOnStart");
-        m_SetNativeSize = serializedObject.FindProperty("m_SetNativeSize");
+        m_Param = serializedObject.FindProperty("m_Param");
         base.OnEnable();
     }
 
@@ -25,7 +25,7 @@ public class UriImageInspector : ImageEditor
         EditorGUILayout.PropertyField(m_UriType);
         EditorGUILayout.PropertyField(m_Uri);
         EditorGUILayout.PropertyField(m_LoadOnStart);
-        EditorGUILayout.PropertyField(m_SetNativeSize);
+        EditorGUILayout.PropertyField(m_Param);
         serializedObject.ApplyModifiedProperties();
         base.OnInspectorGUI();
     }

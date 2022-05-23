@@ -23,7 +23,7 @@ namespace SaltyfishKK.UriImage
         private bool m_LoadOnStart = false;
 
         [SerializeField]
-        private bool m_SetNativeSize = true;
+        private UriImageParam m_Param;
 
         protected override void Start()
         {
@@ -47,11 +47,11 @@ namespace SaltyfishKK.UriImage
         {
             if(m_UriType == UriSourceType.Remote)
             {
-                UriSpriteLoader.Instance.DisplayFromRemote(this, m_Uri, m_SetNativeSize);
+                UriSpriteLoader.Instance.DisplayFromRemote(this, m_Uri, m_Param);
             }
             else
             {
-                UriSpriteLoader.Instance.DisplayFromFilePath(this, m_Uri, m_SetNativeSize);
+                UriSpriteLoader.Instance.DisplayFromFilePath(this, m_Uri, m_Param);
             }
         }
     }
