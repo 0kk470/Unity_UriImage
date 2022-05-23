@@ -15,6 +15,7 @@ namespace SaltyfishKK.UriImage
         public bool IsNativeSize;
 
         public bool IsOverrideSprite;
+
     }
 
     public class UriSpriteLoader:Singleton<UriSpriteLoader>
@@ -97,7 +98,7 @@ namespace SaltyfishKK.UriImage
             }
             else
             {
-                img.sprite = sprite;
+                RefreshSprite(img, sprite, param);
             }
             CheckDestroyedImages();
         }
@@ -108,10 +109,7 @@ namespace SaltyfishKK.UriImage
                 return;
             if (m_DefaultErrorSprite == null)
                 m_DefaultErrorSprite = Resources.Load<Sprite>(UriImage_Setting.DefaultErrorImagePath);
-            if (param.IsOverrideSprite)
-                img.overrideSprite = m_DefaultErrorSprite;
-            else
-                img.sprite = m_DefaultErrorSprite;
+            RefreshSprite(img, m_DefaultErrorSprite, param, true);
         }
 
 
@@ -123,6 +121,7 @@ namespace SaltyfishKK.UriImage
                 m_LoadRequests[img] = request;
             return request.SendWebRequest();
         }
+
 
         public void EndRequest(Image img)
         {
@@ -167,15 +166,21 @@ namespace SaltyfishKK.UriImage
                 var texture = DownloadHandlerTexture.GetContent(request);
                 var sprite = CacheTexture(uri, texture);
 
-                if (param.IsOverrideSprite)
-                    img.overrideSprite = sprite;
-                else
-                    img.sprite = sprite;
-                if (param.IsNativeSize)
-                    img.SetNativeSize();
-
+                RefreshSprite(img, sprite, param);
             }
             EndRequest(img);
+        }
+
+        private void RefreshSprite(Image img, Sprite sprite, UriImageParam param, bool isError = false)
+        {
+            if (param.IsOverrideSprite)
+                img.overrideSprite = sprite;
+            else
+                img.sprite = sprite;
+            if (param.IsNativeSize && !isError)
+            {
+                img.SetNativeSize();
+            }
         }
     }
 }
